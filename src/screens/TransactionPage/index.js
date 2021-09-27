@@ -28,6 +28,7 @@ const TransactionPage = ({navigation}) => {
               bankRecipient={res.beneficiary_bank}
               amount={res.amount}
               date={res.created_at}
+              successColor={res.status === 'SUCCESS'}
               statusTransfer={
                 res.status === 'SUCCESS' ? 'Berhasil' : 'Pengecekan'
               }

@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import Icon from 'react-native-vector-icons/AntDesign';
+import BankItem from '../BankItem';
+
 const CardItem = ({
   onPress,
   bankSender,
@@ -9,27 +10,24 @@ const CardItem = ({
   amount,
   date,
   statusTransfer,
+  successColor,
 }) => {
   return (
     <TouchableOpacity
       onPress={onPress}
       activeOpacity={0.7}
       style={styles.container}>
-      <View style={styles.line} />
+      <View style={styles.line(successColor)} />
       <View style={styles.wrapperContent}>
         <View style={styles.infoUser}>
-          <View style={styles.wrapperBank}>
-            <Text style={styles.senderBank}>{bankSender}</Text>
-            <Icon name="arrowright" size={18} />
-            <Text style={styles.recipientBank}>{bankRecipient}</Text>
-          </View>
+          <BankItem bankSender={bankSender} bankRecipient={bankRecipient} />
           <Text style={styles.name}>{name}</Text>
           <Text>
-            Rp{amount} * {date}
+            Rp{amount.toLocaleString('id-ID')} * {date}
           </Text>
         </View>
-        <View style={styles.status}>
-          <Text style={styles.titleStatus}>{statusTransfer}</Text>
+        <View style={styles.status(successColor)}>
+          <Text style={styles.titleStatus(successColor)}>{statusTransfer}</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -45,14 +43,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     marginTop: 10,
   },
-  line: {
-    backgroundColor: '#fd663a',
+  line: successColor => ({
+    backgroundColor: successColor ? '#50b885' : '#fd663a',
     height: '100%',
     width: 5,
     borderTopLeftRadius: 8,
     borderBottomLeftRadius: 8,
     marginRight: 15,
-  },
+  }),
   wrapperContent: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -66,26 +64,17 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     marginBottom: 2,
   },
-  wrapperBank: {flexDirection: 'row', alignItems: 'center', marginBottom: 2},
-  senderBank: {
-    fontWeight: '700',
-    textTransform: 'uppercase',
-    marginRight: 2,
-  },
-  recipientBank: {
-    fontWeight: '700',
-    textTransform: 'uppercase',
-    marginLeft: 2,
-  },
-  status: {
+  status: successColor => ({
     marginRight: 10,
     borderWidth: 1,
     borderRadius: 8,
-    paddingHorizontal: 8,
+    paddingHorizontal: 10,
     paddingVertical: 4,
-    borderColor: '#fd663a',
-  },
-  titleStatus: {
+    borderColor: successColor ? '#50b885' : '#fd663a',
+    backgroundColor: successColor ? '#50b885' : 'white',
+  }),
+  titleStatus: successColor => ({
     fontWeight: '600',
-  },
+    color: successColor ? 'white' : '#000',
+  }),
 });

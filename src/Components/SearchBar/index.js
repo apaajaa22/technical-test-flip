@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#fd663a',
-    fontWeight: '600',
+    fontWeight: '700',
     marginRight: 2,
   },
 });
