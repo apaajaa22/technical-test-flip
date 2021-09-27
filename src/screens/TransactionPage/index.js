@@ -1,10 +1,24 @@
 import React, {useEffect, useState} from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import CardItem from '../../Components/CardItem';
 import SearchBar from '../../Components/SearchBar';
 
 const TransactionPage = ({navigation}) => {
   const [data, setData] = useState([]);
+  const monthNames = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
 
   useEffect(() => {
     fetch('https://nextar.flip.id/frontend-test')
@@ -20,6 +34,10 @@ const TransactionPage = ({navigation}) => {
       <SearchBar />
       <ScrollView showsVerticalScrollIndicator={false}>
         {data.map(res => {
+          const date = new Date(res.created_at);
+          const day = date.getDate();
+          const month = monthNames[date.getMonth()];
+          const year = date.getFullYear();
           return (
             <CardItem
               key={res.id}
@@ -27,7 +45,7 @@ const TransactionPage = ({navigation}) => {
               bankSender={res.sender_bank}
               bankRecipient={res.beneficiary_bank}
               amount={res.amount}
-              date={res.created_at}
+              date={`${day} ${month} ${year}`}
               successColor={res.status === 'SUCCESS'}
               statusTransfer={
                 res.status === 'SUCCESS' ? 'Berhasil' : 'Pengecekan'

@@ -15,7 +15,24 @@ const DetailPage = ({route, navigation}) => {
     unique_code,
     created_at,
   } = route.params;
-  console.log(id);
+  const monthNames = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+  const date = new Date(created_at);
+  const day = date.getDate();
+  const month = monthNames[date.getMonth()];
+  const year = date.getFullYear();
   return (
     <View style={styles.container}>
       <View style={styles.contentWrapper}>
@@ -34,7 +51,10 @@ const DetailPage = ({route, navigation}) => {
             <View>
               <TextItem title={beneficiary_name} subtitle={account_number} />
               <TextItem title="Berita transfer" subtitle="Coba mbanking yey" />
-              <TextItem title="Waktu dibuat" subtitle={created_at} />
+              <TextItem
+                title="Waktu dibuat"
+                subtitle={`${day} ${month} ${year}`}
+              />
             </View>
             <Gap width="20%" />
             <View>

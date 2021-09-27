@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import BankItem from '../BankItem';
+import Icon from 'react-native-vector-icons/Octicons';
 
 const CardItem = ({
   onPress,
@@ -23,7 +24,8 @@ const CardItem = ({
           <BankItem bankSender={bankSender} bankRecipient={bankRecipient} />
           <Text style={styles.name}>{name}</Text>
           <Text>
-            Rp{amount.toLocaleString('id-ID')} * {date}
+            Rp{amount.toLocaleString('id-ID')}{' '}
+            <Icon name="primitive-dot" size={12} /> {date}
           </Text>
         </View>
         <View style={styles.status(successColor)}>

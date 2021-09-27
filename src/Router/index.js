@@ -4,6 +4,7 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import DetailPage from '../screens/DetailPage';
 import TransactionPage from '../screens/TransactionPage';
+import {TransitionPresets} from '@react-navigation/stack';
 
 const Router = () => {
   const Stack = createNativeStackNavigator();
@@ -14,12 +15,20 @@ const Router = () => {
         <Stack.Screen
           name="transaction-page"
           component={TransactionPage}
-          options={{headerShown: false}}
+          options={{
+            headerShown: false,
+            title: 'transaction-page',
+            ...TransitionPresets.SlideFromRightIOS,
+          }}
         />
         <Stack.Screen
           name="transaction-detail"
           component={DetailPage}
-          options={{headerShown: false}}
+          options={{
+            headerShown: false,
+            title: 'transaction-detail',
+            ...TransitionPresets.SlideFromRightIOS,
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>
