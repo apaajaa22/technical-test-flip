@@ -10,21 +10,23 @@ import {
 import {RadioButton} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/AntDesign';
 
-const SearchBar = () => {
+const SearchBar = ({onChangeText, valueSearch, onPress, value}) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [value, setValue] = useState('URUTKAN');
 
   const pickSort = e => {
-    setValue(e);
     setModalVisible(false);
   };
   return (
     <View style={styles.container}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onPress}>
         <Icon name="search1" size={24} color="#a9a9a9" />
       </TouchableOpacity>
       <View style={styles.input}>
-        <TextInput placeholder="Cari nama, bank, atau nominal" />
+        <TextInput
+          onChangeText={onChangeText}
+          placeholder="Cari nama, bank, atau nominal"
+          value={valueSearch}
+        />
       </View>
       <TouchableOpacity
         onPress={() => setModalVisible(true)}

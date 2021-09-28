@@ -5,6 +5,7 @@ import SearchBar from '../../Components/SearchBar';
 
 const TransactionPage = ({navigation}) => {
   const [data, setData] = useState([]);
+  const [sort, setSort] = useState('URUTKAN');
   const monthNames = [
     'January',
     'February',
@@ -20,6 +21,8 @@ const TransactionPage = ({navigation}) => {
     'December',
   ];
 
+  const [search, setSearch] = useState('');
+
   useEffect(() => {
     fetch('https://nextar.flip.id/frontend-test')
       .then(response => response.json())
@@ -29,11 +32,24 @@ const TransactionPage = ({navigation}) => {
       });
   }, []);
 
+  const dataSearch =
+    search === ''
+      ? data
+      : data.filter(user => {
+          const lowerText = search.toLowerCase();
+          return (
+            `${user.beneficiary_name}`.toLowerCase().includes(lowerText) ||
+            `${user.sender_bank}`.toLowerCase().includes(lowerText) ||
+            `${user.beneficiary_bank}`.toLowerCase().includes(lowerText) ||
+            `${user.amount}`.toLowerCase().includes(lowerText)
+          );
+        });
+
   return (
     <View style={styles.container}>
-      <SearchBar />
+      <SearchBar value={sort} onChangeText={e => setSearch(e)} />
       <ScrollView showsVerticalScrollIndicator={false}>
-        {data.map(res => {
+        {dataSearch.map(res => {
           const date = new Date(res.created_at);
           const day = date.getDate();
           const month = monthNames[date.getMonth()];
