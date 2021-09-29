@@ -27,6 +27,9 @@
 3. Type npm install or yarn install
 4. yarn start && yarn android or npx react-native run-android
 
+## Download APK
+[You can download here ](https://drive.google.com/file/d/1VAspXXyvpYf6ZP1pOVAlf5Zhimwc-sc7/view?usp=sharing)
+
 
 ## License
 © [Rahadian Reza R](https://github.com/apaajaa22)
