@@ -7,7 +7,7 @@ const BankItem = ({bankSender, bankRecipient}) => {
     <View style={styles.wrapperBank}>
       <Text style={styles.senderBank}>{bankSender}</Text>
       <Icon name="arrowright" size={18} />
-      <Text style={styles.recipientBank}>{bankRecipient}</Text>
+      <Text style={styles.recipientBank(bankRecipient)}>{bankRecipient}</Text>
     </View>
   );
 };
@@ -21,9 +21,9 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     marginRight: 2,
   },
-  recipientBank: {
+  recipientBank: bankRecipient => ({
     fontWeight: '700',
-    textTransform: 'uppercase',
+    textTransform: bankRecipient.length > 4 ? 'capitalize' : 'uppercase',
     marginLeft: 2,
-  },
+  }),
 });
