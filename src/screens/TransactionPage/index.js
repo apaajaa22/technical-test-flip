@@ -6,6 +6,7 @@ import ModalCustom from '../../Components/ModalCustom';
 import SearchBar from '../../Components/SearchBar';
 
 const TransactionPage = ({navigation}) => {
+  const URL = 'https://nextar.flip.id/frontend-test';
   const [data, setData] = useState([]);
   const [sort, setSort] = useState('URUTKAN');
   const [visible, setVisible] = useState(false);
@@ -29,20 +30,26 @@ const TransactionPage = ({navigation}) => {
 
   const getData = () => {
     setLoading(true);
-    fetch('https://nextar.flip.id/frontend-test')
+    //get data dari URL
+    fetch(URL)
       .then(response => response.json())
       .then(res => {
+        //mengubah value pertama agar bisa mendapatkan value
+        //didalamnya
         const newRes = Object.values(res);
         setData(newRes);
         setLoading(false);
       });
   };
 
+  //fetch data untuk pertama kali dipanggil
   useEffect(() => {
     getData();
   }, []);
 
   const dataSearch =
+    // jika input kosong akan return data awal jika tidak
+    // akan filter dari data awal dan yg termasuk pada inputan
     search === ''
       ? data
       : data.filter(user => {
@@ -55,6 +62,8 @@ const TransactionPage = ({navigation}) => {
           );
         });
 
+  //melakukan fungsi untuk sorting berdasarkan
+  //label dari komponen radio button
   const doSort = e => {
     setSort(e.label);
     setVisible(false);
@@ -88,6 +97,8 @@ const TransactionPage = ({navigation}) => {
         />
         <ScrollView showsVerticalScrollIndicator={false}>
           {dataSearch.map(res => {
+            //convert dateTime menjadi 2021-09-23T13:15:15
+            //agar bisa di olah menggunakan new Date
             const rawDate = `${res.created_at}`.replace(' ', 'T');
             const date = new Date(rawDate);
             const day = date.getDate();
@@ -105,6 +116,8 @@ const TransactionPage = ({navigation}) => {
                 statusTransfer={
                   res.status === 'SUCCESS' ? 'Berhasil' : 'Pengecekan'
                 }
+                //navigasi kehalaman detail
+                //dan mengirim response data sesuai dengan indexnya
                 onPress={() => navigation.navigate('transaction-detail', res)}
               />
             );

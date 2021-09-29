@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
   btnRadioWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    // marginBottom: 20,
     padding: 5,
   },
   borderRdoBtn: {
@@ -32,6 +31,8 @@ const styles = StyleSheet.create({
     marginRight: 4,
   },
   dotRdoBtn: isActive => ({
+    //jika radio button terpilih akan memunculkan warna orange
+    //jika tidak putih
     backgroundColor: isActive ? '#fd663a' : 'white',
     width: 12,
     height: 12,

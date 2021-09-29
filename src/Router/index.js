@@ -1,10 +1,8 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
 import DetailPage from '../screens/DetailPage';
 import TransactionPage from '../screens/TransactionPage';
-import {TransitionPresets} from '@react-navigation/stack';
 
 const Router = () => {
   const Stack = createNativeStackNavigator();
@@ -17,8 +15,6 @@ const Router = () => {
           component={TransactionPage}
           options={{
             headerShown: false,
-            title: 'transaction-page',
-            ...TransitionPresets.SlideFromRightIOS,
           }}
         />
         <Stack.Screen
@@ -26,8 +22,6 @@ const Router = () => {
           component={DetailPage}
           options={{
             headerShown: false,
-            title: 'transaction-detail',
-            ...TransitionPresets.SlideFromRightIOS,
           }}
         />
       </Stack.Navigator>
@@ -36,5 +30,3 @@ const Router = () => {
 };
 
 export default Router;
-
-const styles = StyleSheet.create({});

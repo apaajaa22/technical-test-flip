@@ -18,6 +18,8 @@ const ModalCustom = ({visible, onRequestClose, onPressRdoBtn, labelSort}) => {
       onRequestClose={onRequestClose}>
       <View style={styles.containerModal}>
         <View style={styles.modalContent}>
+          {/* map komponen radio button berdasarkan data
+        di atas untuk label radio button */}
           {data.map(res => {
             return (
               <RadioButton

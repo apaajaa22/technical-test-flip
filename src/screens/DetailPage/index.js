@@ -1,10 +1,20 @@
+import Clipboard from '@react-native-clipboard/clipboard';
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  ToastAndroid,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import BankItem from '../../Components/BankItem';
 import Gap from '../../Components/Gap';
 import TextItem from '../../Components/TextItem';
+import Header from '../../Components/Header';
 
 const DetailPage = ({route, navigation}) => {
+  //pengambilan data lewat proses navigasi sebelumnya
   const {
     id,
     amount,
@@ -14,6 +24,7 @@ const DetailPage = ({route, navigation}) => {
     beneficiary_name,
     unique_code,
     created_at,
+    remark,
   } = route.params;
   const monthNames = [
     'January',
@@ -29,6 +40,17 @@ const DetailPage = ({route, navigation}) => {
     'November',
     'December',
   ];
+  //fungsi untuk copy text
+  const onCopy = () => {
+    Clipboard.setString(`${id}`);
+    ToastAndroid.showWithGravityAndOffset(
+      'ID Transaction copied',
+      ToastAndroid.LONG,
+      ToastAndroid.BOTTOM,
+      25,
+      50,
+    );
+  };
   const rawDate = `${created_at}`.replace(' ', 'T');
   const date = new Date(rawDate);
   const day = date.getDate();
@@ -36,9 +58,13 @@ const DetailPage = ({route, navigation}) => {
   const year = date.getFullYear();
   return (
     <View style={styles.container}>
+      <Header title="Detail Transaksi" />
       <View style={styles.contentWrapper}>
         <View style={styles.idWrapper}>
-          <Text style={styles.idText}>ID TRANSAKSI:#{id}</Text>
+          <Text style={styles.idText}>ID TRANSAKSI: #{id}</Text>
+          <TouchableOpacity activeOpacity={0.7} onPress={onCopy}>
+            <Icon name="content-copy" color="#fd663a" size={16} />
+          </TouchableOpacity>
         </View>
         <View style={styles.wrapperSubText}>
           <Text style={styles.subText}>DETAIL TRANSAKSI</Text>
@@ -51,13 +77,13 @@ const DetailPage = ({route, navigation}) => {
           <View style={styles.row}>
             <View>
               <TextItem title={beneficiary_name} subtitle={account_number} />
-              <TextItem title="Berita transfer" subtitle="Coba mbanking yey" />
+              <TextItem title="Berita transfer" subtitle={remark} />
               <TextItem
                 title="Waktu dibuat"
                 subtitle={`${day} ${month} ${year}`}
               />
             </View>
-            <Gap width="20%" />
+            <Gap width="15%" />
             <View>
               <TextItem
                 title="Nominal"
@@ -78,7 +104,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f5f9f8',
-    paddingTop: 20,
   },
   contentWrapper: {
     backgroundColor: 'white',
@@ -89,10 +114,13 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     borderBottomWidth: 1,
     borderBottomColor: '#f8f8f8',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   idText: {
     color: '#000',
     fontWeight: '700',
+    marginRight: 5,
   },
   wrapperSubText: {
     paddingHorizontal: 20,

@@ -24,6 +24,7 @@ const CardItem = ({
           <BankItem bankSender={bankSender} bankRecipient={bankRecipient} />
           <Text style={styles.name}>{name}</Text>
           <Text>
+            {/* mengubah format mata uang */}
             Rp{amount.toLocaleString('id-ID')}{' '}
             <Icon name="primitive-dot" size={12} /> {date}
           </Text>
@@ -46,6 +47,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   line: successColor => ({
+    //jika transaksi berhasil akan memberikan warna hijau
+    //jika tidak orange
     backgroundColor: successColor ? '#50b885' : '#fd663a',
     height: '100%',
     width: 5,
@@ -72,11 +75,17 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 10,
     paddingVertical: 4,
+    //jika transaksi berhasil akan memberikan warna hijau
+    //jika tidak orange
     borderColor: successColor ? '#50b885' : '#fd663a',
+    //jika transaksi berhasil akan memberikan warna hijau
+    //jika tidak putih
     backgroundColor: successColor ? '#50b885' : 'white',
   }),
   titleStatus: successColor => ({
     fontWeight: '600',
+    //jika transaksi berhasil akan memberikan warna putih
+    //jika tidak hitam
     color: successColor ? 'white' : '#000',
   }),
 });
