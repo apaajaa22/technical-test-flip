@@ -1,11 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import CardItem from '../../Components/CardItem';
+import ModalCustom from '../../Components/ModalCustom';
 import SearchBar from '../../Components/SearchBar';
 
 const TransactionPage = ({navigation}) => {
   const [data, setData] = useState([]);
   const [sort, setSort] = useState('URUTKAN');
+  const [visible, setVisible] = useState(false);
+  const [search, setSearch] = useState('');
+
   const monthNames = [
     'January',
     'February',
@@ -21,15 +25,17 @@ const TransactionPage = ({navigation}) => {
     'December',
   ];
 
-  const [search, setSearch] = useState('');
-
-  useEffect(() => {
+  const getData = () => {
     fetch('https://nextar.flip.id/frontend-test')
       .then(response => response.json())
       .then(res => {
         const newRes = Object.values(res);
         setData(newRes);
       });
+  };
+
+  useEffect(() => {
+    getData();
   }, []);
 
   const dataSearch =
@@ -47,10 +53,15 @@ const TransactionPage = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <SearchBar value={sort} onChangeText={e => setSearch(e)} />
+      <SearchBar
+        value={sort}
+        onChangeText={e => setSearch(e)}
+        onPressSort={() => setVisible(true)}
+      />
       <ScrollView showsVerticalScrollIndicator={false}>
         {dataSearch.map(res => {
-          const date = new Date(res.created_at);
+          const rawDate = `${res.created_at}`.replace(' ', 'T');
+          const date = new Date(rawDate);
           const day = date.getDate();
           const month = monthNames[date.getMonth()];
           const year = date.getFullYear();
@@ -71,6 +82,14 @@ const TransactionPage = ({navigation}) => {
           );
         })}
       </ScrollView>
+      <ModalCustom
+        labelSort={sort}
+        visible={visible}
+        onPressRdoBtn={e => {
+          console.log(e);
+          setVisible(false);
+        }}
+      />
     </View>
   );
 };

@@ -29,7 +29,8 @@ const DetailPage = ({route, navigation}) => {
     'November',
     'December',
   ];
-  const date = new Date(created_at);
+  const rawDate = `${created_at}`.replace(' ', 'T');
+  const date = new Date(rawDate);
   const day = date.getDate();
   const month = monthNames[date.getMonth()];
   const year = date.getFullYear();
