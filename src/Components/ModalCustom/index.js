@@ -4,10 +4,11 @@ import RadioButton from '../RadioButton';
 
 const ModalCustom = ({visible, onRequestClose, onPressRdoBtn, labelSort}) => {
   const data = [
-    {label: 'URUTKAN'},
-    {label: 'Nama A-Z'},
-    {label: 'Nama Z-A'},
-    {label: 'URUTKAN'},
+    {id: 1, label: 'URUTKAN'},
+    {id: 2, label: 'Nama A-Z'},
+    {id: 3, label: 'Nama Z-A'},
+    {id: 4, label: 'Tanggal Terbaru'},
+    {id: 5, label: 'Tanggal Terlama'},
   ];
   return (
     <Modal
@@ -20,6 +21,7 @@ const ModalCustom = ({visible, onRequestClose, onPressRdoBtn, labelSort}) => {
           {data.map(res => {
             return (
               <RadioButton
+                key={res.id}
                 isActive={res.label === labelSort}
                 onPressRdoBtn={() => onPressRdoBtn(res)}
                 label={res.label}
