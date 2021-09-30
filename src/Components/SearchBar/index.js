@@ -20,11 +20,13 @@ const SearchBar = ({
       <TouchableOpacity onPress={onPress}>
         <Icon name="search1" size={24} color="#a9a9a9" />
       </TouchableOpacity>
-      <View style={styles.input}>
+      <View style={styles.inputWrapper}>
         <TextInput
           onChangeText={onChangeText}
           placeholder="Cari nama, bank, atau nominal"
           value={valueSearch}
+          placeholderTextColor="#a9a9a9"
+          style={styles.input}
         />
       </View>
       <TouchableOpacity onPress={onPressSort} style={styles.sortWrapper}>
@@ -45,9 +47,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     borderRadius: 8,
   },
-  input: {
+  inputWrapper: {
     flex: 1,
   },
+  input: {color: '#000'},
   sortWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
